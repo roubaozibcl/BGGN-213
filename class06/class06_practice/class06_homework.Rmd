@@ -1,0 +1,101 @@
+---
+title: "class06_practice"
+author: "Chenlu Bao"
+date: "April 19, 2019"
+output: html_document
+---
+
+# Section 1B
+```{r}
+install.packages("bio3d")
+```
+
+```{r}
+# Can you improve this analysis code?
+library(bio3d)
+s1 <- read.pdb("4AKE") # kinase with drug
+s2 <- read.pdb("1AKE") # kinase no drug
+s3 <- read.pdb("1E4Y") # kinase with drug
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s1.b <- s1.chainA$atom$b
+s2.b <- s2.chainA$atom$b
+s3.b <- s3.chainA$atom$b
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor")
+plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor")
+plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor")
+```
+
+Q1. This function returns list of length 8 (information about atoms, helix, and sheet).
+Q2. This function gives a new list of "pdb" information with atom, helix and sheet.
+Q3. Marginal black and gray rectangles represent alpha helices and beta strands. "sse" function could remove these rectangles
+```{r}
+# Can you improve this analysis code?
+library(bio3d)
+s1 <- read.pdb("4AKE") # kinase with drug
+s2 <- read.pdb("1AKE") # kinase no drug
+s3 <- read.pdb("1E4Y") # kinase with drug
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s1.b <- s1.chainA$atom$b
+s2.b <- s2.chainA$atom$b
+s3.b <- s3.chainA$atom$b
+plotb3(s1.b, typ="l", ylab="Bfactor")
+plotb3(s2.b, typ="l", ylab="Bfactor")
+plotb3(s3.b, typ="l", ylab="Bfactor")
+```
+
+```{r}
+# Can you improve this analysis code?
+library(bio3d)
+s1 <- read.pdb("4AKE") # kinase with drug
+s2 <- read.pdb("1AKE") # kinase no drug
+s3 <- read.pdb("1E4Y") # kinase with drug
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s3, chain="A", elety="CA")
+s1.b <- s1.chainA$atom$b
+s2.b <- s2.chainA$atom$b
+s3.b <- s3.chainA$atom$b
+plotb3(s1.b, typ="l", ylab="Bfactor")
+plotb3(s2.b, typ="l", ylab="Bfactor")
+plotb3(s3.b, typ="l", ylab="Bfactor")
+```
+
+```{r}
+# Dont ever start like this
+makeplot <- function(x) {
+  
+}
+```
+
+```{r}
+hc <- hclust( dist( rbind(s1.b, s2.b, s3.b) ) )
+plot(hc)
+```
+
+
+```{r}
+hc <- function(x) {
+    plot(hclust( dist(rbind(x)) ))
+}
+
+y <- c(s1.b, s2.b, s3.b)
+hc(y)
+```
+
+```{r}
+stru <- function(x) {
+  hc <- hclust( dist( data.frame(x)) ) 
+  plot(hc)
+}
+
+str(c(s1.b, s2.b, s3.b))
+```
+
+```{r}
+rbind(x[1], x[2], x[3])
+```
+
